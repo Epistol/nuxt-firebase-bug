@@ -83,7 +83,14 @@ export default {
   */
   axios: {
     proxy: true
+  },
 
+  router: {
+    base: '/',
+  },
+
+  generate: {
+    dir: 'public',
   },
   /*
   ** Content module configuration
