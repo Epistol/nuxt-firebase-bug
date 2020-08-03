@@ -62,9 +62,21 @@ export default {
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt/content
     '@nuxt/content',
-    '@nuxtjs/proxy'
+    '@nuxtjs/proxy',
+    '@nuxtjs/firebase'
 
   ],
+
+  firebase = {
+    apiKey: process.env.FIREBASE_KEY,
+    authDomain: "triplan-io.firebaseapp.com",
+    databaseURL: "https://triplan-io.firebaseio.com",
+    projectId: "triplan-io",
+    storageBucket: "triplan-io.appspot.com",
+    messagingSenderId: "893952973599",
+    appId: "1:893952973599:web:c8543264963b7eaa74ae2a",
+    measurementId: "G-E9HGZ2Y0EG"
+  },
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
