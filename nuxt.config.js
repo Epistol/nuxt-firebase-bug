@@ -67,16 +67,67 @@ export default {
 
   ],
 
-  firebase = {
-    apiKey: process.env.FIREBASE_KEY,
-    authDomain: "triplan-io.firebaseapp.com",
-    databaseURL: "https://triplan-io.firebaseio.com",
-    projectId: "triplan-io",
-    storageBucket: "triplan-io.appspot.com",
-    messagingSenderId: "893952973599",
-    appId: "1:893952973599:web:c8543264963b7eaa74ae2a",
-    measurementId: "G-E9HGZ2Y0EG"
+  firebase: {
+    config: {
+      apiKey: process.env.FIREBASE_KEY,
+      authDomain: "triplan-io.firebaseapp.com",
+      databaseURL: "https://triplan-io.firebaseio.com",
+      projectId: "triplan-io",
+      storageBucket: "triplan-io.appspot.com",
+      messagingSenderId: "893952973599",
+      appId: "1:893952973599:web:c8543264963b7eaa74ae2a",
+      measurementId: "G-E9HGZ2Y0EG"
+    },
+    services: {
+      auth: {
+        persistence: 'local',
+        initialize: {
+          onAuthStateChangedMutation: "SET_AUTH_USER",
+          onAuthStateChangedAction: null,
+        },
+        ssr: {
+          // !! NEVER deploy a service account file to github or to a publicly accessible folder on your server !!
+          credential: '~/assets/firebase/serviceAccount.json',
+          // Experimental Feature, use with caution.
+          serverLogin: {
+            sessionLifetime: 60 * 60 * 1000, // one hour
+            loginDelay: 50 // minimal recommended delay
+          }
+        }
+      },
+      firestore: {
+        memoryOnly: false // default
+      },
+      functions: {
+        location: 'us-central1', // Default
+        emulatorPort: 12345
+      },
+      storage: true,
+      realtimeDb: true,
+      performance: true,
+      analytics: true,
+      remoteConfig: {
+        settings: {
+          fetchTimeoutMillis: 60000, // Default
+          minimumFetchIntervalMillis: 43200000 // Default
+        },
+        defaultConfig: {
+          welcome_message: "Welcome"
+        }
+      },
+      messaging: {
+        createServiceWorker: true,
+        actions: [
+          {
+            action: '<randomName>',
+            url: '<randomUrl>'
+          }
+        ],
+        fcmPublicVapidKey: '<publicVapidKey>' // OPTIONAL : Sets vapid key for FCM after initialization
+      }
+    }
   },
+
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
@@ -116,7 +167,8 @@ export default {
           success: colors.green.accent3
         }
       }
-    }
+    },
+    defaultAssets: { icons: 'fa' }
   },
   /*
   ** Build configuration
