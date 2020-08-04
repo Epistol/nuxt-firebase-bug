@@ -23,6 +23,7 @@
     },
     "types": [
       "./types",
+      "@nuxtjs/firebase",
       "@types/node",
       "@nuxt/types",
       "@types/lodash",
